@@ -1,4 +1,7 @@
 const express = require('express');
+const authMiddleware = require("../middlewares/auth.middleware");
+
+
 const router = express.Router();
 
 const {
@@ -10,18 +13,18 @@ const {
 } = require('../controllers/tarea.controller');
 
 // GET ALL
-router.get('/', getTasks);
+router.get('/', authMiddleware, getTasks);
 
 // GET BY ID
-router.get('/:id', getTaskById);
+router.get('/:id', authMiddleware, getTaskById);
 
 // CREATE
-router.post('/', createTask);
+router.post('/', authMiddleware, createTask);
 
 // UPDATE
-router.put('/:id', updateTask);
+router.put('/:id', authMiddleware, updateTask);
 
 // DELETE
-router.delete('/:id', deleteTask);
+router.delete('/:id', authMiddleware, deleteTask);
 
 module.exports = router;

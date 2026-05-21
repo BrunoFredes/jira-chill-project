@@ -1,5 +1,5 @@
 const {
-    getTasksService,
+    getAllTasksService,
     getTaskByIdService,
     createTaskService,
     updateTaskService,
@@ -8,10 +8,16 @@ const {
 
 // GET ALL
 const getTasks = async (req, res) => {
+
+    console.log(req.user); // Verificar que req.user esté disponible
+
     try {
-        const tasks = await getTasksService();
+        const tasks = await getAllTasksService(req.user.id);
+        console.log("📋 TAREAS OBTENIDAS:", tasks);
         res.json(tasks);
     } catch (error) {
+
+        console.log("❌ ERROR GETTING TASKS:", error.message);
         res.status(500).json({
             message: error.message
         });
@@ -61,7 +67,8 @@ const createTask = async (req, res) => {
             fecha_tarea,
             encargado_tarea,
             prioridad_tarea,
-            estado_tarea
+            estado_tarea,
+            req.user.id
         );
 
         console.log("✅ CREADO CORRECTAMENTE:");
@@ -107,7 +114,8 @@ const updateTask = async (req, res) => {
             encargado_tarea,
             prioridad_tarea,
             estado_tarea,
-            id
+            id,
+            req.user.id
             
         );
 
@@ -140,7 +148,7 @@ const deleteTask = async (req, res) => {
     try {
         const { id } = req.params;
 
-        const deletedTask = await deleteTaskService(id);
+        const deletedTask = await deleteTaskService(id, req.user.id);
 
         if (!deletedTask) {
             return res.status(404).json({

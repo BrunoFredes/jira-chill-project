@@ -1,8 +1,21 @@
 const pool = require("../config/database");
 
 // Obtener todos
-const getAllTasks = async () => {
-    const result = await pool.query('SELECT * FROM "Tareas"');
+const getAllTasks = async (
+    id_usuario
+) => {
+
+    const result = await pool.query(
+        `
+        SELECT t.*
+        FROM "Tareas" t
+        JOIN "Usuarios" u
+        ON t.id_sala = u.id_sala
+        WHERE u.id_usuario = $1
+        `,
+        [id_usuario]
+    );
+
     return result.rows;
 };
 
@@ -17,12 +30,12 @@ const getTaskById = async (id_tarea) => {
 };
 
 // Crear tarea
-const createTask = async ( nombre_tarea,descripcion_tarea, fecha_tarea, encargado_tarea, prioridad_tarea, estado_tarea) => {
+const createTask = async ( nombre_tarea,descripcion_tarea, fecha_tarea, encargado_tarea, prioridad_tarea, estado_tarea, id_sala) => {
     const result = await pool.query(
-        `INSERT INTO "Tareas" ( nombre_tarea, descripcion_tarea, fecha_tarea, estado_tarea, encargado_tarea, prioridad_tarea)
-         VALUES ($1, $2, $3, $4, $5, $6)
+        `INSERT INTO "Tareas" ( nombre_tarea, descripcion_tarea, fecha_tarea, estado_tarea, encargado_tarea, prioridad_tarea, id_sala)
+         VALUES ($1, $2, $3, $4, $5, $6, $7)
          RETURNING *`,
-        [nombre_tarea, descripcion_tarea, fecha_tarea, estado_tarea, encargado_tarea, prioridad_tarea]
+        [nombre_tarea, descripcion_tarea, fecha_tarea, estado_tarea, encargado_tarea, prioridad_tarea, id_sala]
     );
 
     return result.rows[0];
@@ -45,6 +58,26 @@ const updateTask = async (nombre_tarea,  descripcion_tarea, fecha_tarea, encarga
 
     return result.rows[0];
 };
+//get tareas por id_usuario and sala
+const getTaskByIdAndSala = async (
+    id_tarea,
+    id_usuario
+) => {
+
+    const result = await pool.query(
+        `
+        SELECT t.*
+        FROM "Tareas" t
+        JOIN "Usuarios" u
+        ON t.id_sala = u.id_sala
+        WHERE t.id_tarea = $1
+        AND u.id_usuario = $2
+        `,
+        [id_tarea, id_usuario]
+    );
+
+    return result.rows[0];
+};
 
 // Eliminar tarea
 const deleteTask = async (id_tarea) => {
@@ -63,5 +96,6 @@ module.exports = {
     getTaskById,
     createTask,
     updateTask,
-    deleteTask
+    deleteTask,
+    getTaskByIdAndSala
 };

@@ -3,15 +3,24 @@ const {
     getTaskById,
     createTask,
     updateTask,
-    deleteTask
+    deleteTask,
+    getTaskByIdAndSala
 } = require("../models/tarea.models");
 
+const{
+    getMySala,
+} =require("../models/salas.models");
 
 // GET ALL
-const getTasksService = async () => {
-    return await getAllTasks();
-};
+const getAllTasksService = async (
+    id_usuario
+) => {
 
+    return await getAllTasks(
+        id_usuario
+    );
+
+};
 
 // GET BY ID
 const getTaskByIdService = async (id) => {
@@ -26,15 +35,23 @@ const createTaskService = async (
     fecha_tarea,
     encargado_tarea,
     prioridad_tarea,
-    estado_tarea
+    estado_tarea,
+    id_usuario
 ) => {
+    //obtener id_sala del usuario
+    const sala = await getMySala(id_usuario);
+    //verificar que el usuario tenga una sala
+    if (!sala) {
+        throw new Error("El usuario no tiene una sala asignada");
+    }
     return await createTask(
         nombre_tarea,
         descripcion_tarea,
         fecha_tarea,
         encargado_tarea,
         prioridad_tarea,
-        estado_tarea
+        estado_tarea,
+        sala.id_sala
     );
 };
 
@@ -47,8 +64,23 @@ const updateTaskService = async (
     encargado_tarea,
     prioridad_tarea,
     estado_tarea,
-    id
+    id_tarea,
+    id_usuario
 ) => {
+
+    // verificar que la tarea pertenezca a la sala
+    const task = await getTaskByIdAndSala(
+        id_tarea,
+        id_usuario
+    );
+
+    if (!task) {
+        throw new Error(
+            "No tienes permiso para modificar esta tarea"
+        );
+    }
+
+    // actualizar
     return await updateTask(
         nombre_tarea,
         descripcion_tarea,
@@ -56,20 +88,39 @@ const updateTaskService = async (
         encargado_tarea,
         prioridad_tarea,
         estado_tarea,
-        id
+        id_tarea,
+        req.user.id
     );
-};
 
+};
 
 // DELETE
-const deleteTaskService = async (id) => {
-    return await deleteTask(id);
-};
+const deleteTaskService = async (
+    id_tarea,
+    id_usuario
+) => {
 
+    // verificar ownership
+    const task = await getTaskByIdAndSala(
+        id_tarea,
+        id_usuario
+    );
+
+    if (!task) {
+        throw new Error(
+            "No tienes permiso para eliminar esta tarea"
+        );
+    }
+
+    return await deleteTask(
+        id_tarea
+    );
+
+};
 
 // EXPORT CORRECTO
 module.exports = {
-    getTasksService,
+    getAllTasksService,
     getTaskByIdService,
     createTaskService,
     updateTaskService,
