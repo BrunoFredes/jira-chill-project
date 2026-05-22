@@ -1,0 +1,506 @@
+@import url('https://fonts.googleapis.com/css2?family=Patrick+Hand&family=Inter:wght@400;500;600;700&display=swap');
+
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+}
+
+html,
+body,
+#root{
+  min-height:100vh;
+  width:100%;
+}
+
+body{
+  font-family:'Inter',sans-serif;
+}
+
+/* DASHBOARD */
+
+.dashboard{
+
+  min-height:100vh;
+  height:100vh;          /* 👈 clave */
+  overflow:hidden;       /* 👈 elimina scroll global */
+
+  padding:30px;
+
+  background:
+    radial-gradient(
+      circle at top left,
+      rgba(255,255,255,0.15),
+      transparent 20%
+    ),
+
+    linear-gradient(
+      rgba(235, 210, 180, 0.92),
+      rgba(245,220,190,0.92)
+    ),
+
+    url('https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?q=80&w=2070');
+
+  background-size:cover;
+  background-position:center;
+
+  display:flex;          /* 👈 ayuda a controlar altura */
+  flex-direction:column;
+}
+/* TOPBAR */
+
+.topbar{
+
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+
+  margin-bottom:30px;
+}
+
+.logo-section h1{
+
+  font-family:'Patrick Hand',cursive;
+
+  font-size:2.7rem;
+
+  color:#3f281f;
+}
+
+/* BUTTON */
+
+.logout-btn{
+
+  border:none;
+
+  padding:14px 20px;
+
+  border-radius:16px;
+
+  background:#3f281f;
+
+  color:white;
+
+  font-weight:600;
+
+  cursor:pointer;
+
+  transition:0.25s;
+}
+
+.logout-btn:hover{
+
+  transform:translateY(-2px);
+
+  background:#5b3a2c;
+}
+
+/* TITLE */
+
+.board-title{
+
+  margin-bottom:30px;
+}
+
+.board-title h2{
+
+  font-family:'Patrick Hand',cursive;
+
+  font-size:4rem;
+
+  color:#4b2e24;
+}
+
+.board-title p{
+
+  color:#6a5147;
+
+  font-size:1.1rem;
+}
+
+/* BOARD */
+
+.board{
+  display:grid;
+
+  grid-template-columns:repeat(4,1fr);
+
+  gap:24px;
+
+  flex:1;          /* 👈 ocupa el espacio restante */
+  min-height:0;    /* 👈 evita overflow raro */
+}
+/* COLUMN */
+
+.column{
+
+  background: rgba(255,255,255,0.28);
+  backdrop-filter: blur(8px);
+
+  border-radius:28px;
+
+  padding:20px;
+
+  min-height:0;      /* 👈 importante */
+  overflow-y:auto;   /* 👈 si hay muchas tasks scrollea acá */
+
+  box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+}
+
+/* LABEL */
+
+.column-label{
+
+  width:fit-content;
+
+  padding:10px 18px;
+
+  border-radius:14px;
+
+  margin-bottom:22px;
+
+  font-family:'Patrick Hand',cursive;
+
+  font-size:1.8rem;
+
+  font-weight:bold;
+
+  transform:rotate(-2deg);
+}
+
+.yellow{
+  background:#ffe680;
+}
+
+.blue{
+  background:#a8dcff;
+}
+
+.green{
+  background:#bff0b5;
+}
+
+.pink{
+  background:#ffc1cf;
+}
+
+/* TASK CARD */
+
+.task-card{
+
+  padding:22px;
+
+  border-radius:18px;
+
+  margin-bottom:20px;
+
+  box-shadow:
+    0 8px 18px rgba(0,0,0,0.12);
+
+  transition:0.25s;
+
+  cursor:pointer;
+
+  position:relative;
+}
+
+.task-card:hover{
+
+  transform:
+    translateY(-5px)
+    rotate(-1deg);
+}
+
+/* CARD COLORS */
+
+.yellow-card{
+  background:#fff1a8;
+}
+
+.blue-card{
+  background:#bfe5ff;
+}
+
+.green-card{
+  background:#cff5bd;
+}
+
+.pink-card{
+  background:#ffd3de;
+}
+
+/* TEXT */
+
+.task-card h3{
+
+  font-family:'Patrick Hand',cursive;
+
+  font-size:2rem;
+
+  color:#2f1d16;
+
+  margin-bottom:12px;
+
+  line-height:1.1;
+}
+
+.task-card p{
+
+  color:#4d382f;
+
+  line-height:1.5;
+
+  margin-bottom:18px;
+}
+
+.task-id{
+
+  font-size:0.9rem;
+
+  color:#5f4a41;
+
+  font-weight:600;
+}
+
+/* RESPONSIVE */
+
+@media(max-width:1200px){
+
+  .board{
+
+    grid-template-columns:
+      repeat(2,1fr);
+
+  }
+
+}
+
+@media(max-width:700px){
+
+  .board{
+    grid-template-columns:1fr;
+  }
+
+  .dashboard{
+    padding:18px;
+  }
+
+  .board-title h2{
+    font-size:3rem;
+  }
+
+}
+/* META */
+
+.task-meta{
+
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+
+  margin-top:20px;
+}
+
+.task-user{
+
+  display:flex;
+  align-items:center;
+  gap:10px;
+}
+
+.mini-avatar{
+
+  width:32px;
+  height:32px;
+
+  border-radius:50%;
+
+  background:#5f4338;
+
+  color:white;
+
+  display:flex;
+  align-items:center;
+  justify-content:center;
+
+  font-weight:bold;
+}
+
+/* PRIORITY */
+
+.priority{
+
+  padding:6px 12px;
+
+  border-radius:999px;
+
+  font-size:0.8rem;
+
+  font-weight:700;
+}
+
+.priority.alta{
+  background:#ffb4b4;
+  color:#7a1f1f;
+}
+
+.priority.media{
+  background:#ffe8a3;
+  color:#7a5a12;
+}
+
+.priority.baja{
+  background:#b7efc5;
+  color:#21693b;
+}
+
+/* MODAL */
+
+.modal-overlay{
+
+  position:fixed;
+
+  inset:0;
+
+  background:rgba(0,0,0,0.45);
+
+  display:flex;
+  align-items:center;
+  justify-content:center;
+
+  z-index:999;
+
+  backdrop-filter:blur(4px);
+
+  animation:fadeIn 0.2s ease;
+}
+
+.task-modal{
+
+  width:600px;
+
+  background:#f7eadf;
+
+  border-radius:28px;
+
+  padding:35px;
+
+  position:relative;
+
+  box-shadow:
+    0 20px 50px rgba(0,0,0,0.25);
+
+  animation:modalPop 0.25s ease;
+}
+
+.task-modal h2{
+
+  font-family:'Patrick Hand',cursive;
+
+  font-size:3rem;
+
+  color:#3b241b;
+
+  margin-bottom:18px;
+}
+
+.modal-description{
+
+  color:#5c453c;
+
+  line-height:1.7;
+
+  margin-bottom:28px;
+}
+
+.modal-info{
+
+  display:flex;
+  flex-direction:column;
+
+  gap:14px;
+
+  margin-bottom:30px;
+
+  color:#3f2b23;
+}
+
+.assign-btn{
+
+  border:none;
+
+  padding:16px 22px;
+
+  border-radius:16px;
+
+  background:#5f4338;
+
+  color:white;
+
+  font-weight:700;
+
+  cursor:pointer;
+
+  transition:0.25s;
+}
+
+.assign-btn:hover{
+
+  transform:translateY(-2px);
+
+  background:#7a5648;
+}
+
+.close-btn{
+
+  position:absolute;
+
+  top:20px;
+  right:20px;
+
+  border:none;
+
+  background:none;
+
+  font-size:1.2rem;
+
+  cursor:pointer;
+
+  color:#5f4338;
+}
+.sala-actions{
+  display:flex;
+  justify-content:flex-start;
+  margin: 10px 0 20px 0;
+}
+
+.copy-room-btn{
+  background:#5f4338;
+  color:white;
+  border:none;
+  padding:10px 16px;
+  border-radius:12px;
+  cursor:pointer;
+  font-weight:600;
+  transition:0.2s;
+}
+
+.copy-room-btn:hover{
+  transform: translateY(-2px);
+  background:#7a5648;
+}
+/* ANIMATIONS */
+
+@keyframes modalPop{
+
+  from{
+    opacity:0;
+    transform:scale(0.95);
+  }
+
+  to{
+    opacity:1;
+    transform:scale(1);
+  }
+
+}

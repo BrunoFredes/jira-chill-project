@@ -1,0 +1,261 @@
+@import url('https://fonts.googleapis.com/css2?family=Patrick+Hand&family=Inter:wght@400;500;600;700&display=swap');
+
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+}
+
+html,
+body,
+#root{
+  width:100%;
+  min-height:100vh;
+}
+
+body{
+  font-family:'Inter',sans-serif;
+}
+
+/* CONTAINER */
+
+.login-container{
+
+  min-height:100vh;
+  width:100%;
+
+  display:flex;
+  align-items:center;
+  justify-content:center;
+
+  position:relative;
+
+  overflow:hidden;
+
+  background:
+  radial-gradient(
+    circle at top left,
+    rgba(197,139,93,0.25),
+    transparent 35%
+  ),
+
+  radial-gradient(
+    circle at bottom right,
+    rgba(120,72,48,0.35),
+    transparent 40%
+  ),
+
+  linear-gradient(
+    135deg,
+    #2b1d18,
+    #1f1512,
+    #140f0d
+  );
+}
+
+.login-container::after{
+
+  content:'';
+
+  position:absolute;
+
+  width:500px;
+  height:500px;
+
+  background:
+    radial-gradient(
+      circle,
+      rgba(197,139,93,0.18),
+      transparent 70%
+    );
+
+  top:-120px;
+  right:-120px;
+
+  filter:blur(40px);
+
+}
+/* OVERLAY */
+
+.login-container::before{
+
+  content:'';
+
+  position:absolute;
+
+  inset:0;
+
+  backdrop-filter:blur(2px);
+}
+
+/* CARD */
+
+.login-card{
+
+  position:relative;
+  z-index:2;
+
+  width:420px;
+
+  background:rgba(244,230,216,0.92);
+
+  border-radius:28px;
+
+  padding:45px;
+
+  box-shadow:
+    0 25px 60px rgba(0,0,0,0.35);
+
+  border:
+    1px solid rgba(255,255,255,0.3);
+
+  animation:fadeIn 0.6s ease;
+}
+
+/* TITLE */
+
+.login-header{
+  text-align:center;
+  margin-bottom:35px;
+}
+
+.login-header h1{
+
+  font-family:'Patrick Hand',cursive;
+
+  font-size:3rem;
+
+  color:#3e2a23;
+
+  margin-bottom:6px;
+}
+
+.login-header p{
+  color:#6d5247;
+}
+
+/* FORM */
+
+.login-form{
+  display:flex;
+  flex-direction:column;
+  gap:22px;
+}
+
+.input-group{
+  display:flex;
+  flex-direction:column;
+  gap:8px;
+}
+
+.input-group label{
+
+  color:#4d372f;
+
+  font-weight:600;
+}
+
+.input-group input{
+
+  padding:16px;
+
+  border:none;
+
+  border-radius:16px;
+
+  background:#fff8f2;
+
+  color:#2b1b16;
+
+  font-size:1rem;
+
+  outline:none;
+
+  transition:0.25s;
+}
+
+.input-group input:focus{
+
+  box-shadow:
+    0 0 0 4px rgba(197,139,93,0.2);
+
+  transform:translateY(-1px);
+}
+
+/* BUTTON */
+
+.login-form button{
+
+  margin-top:10px;
+
+  padding:16px;
+
+  border:none;
+
+  border-radius:18px;
+
+  background:
+    linear-gradient(
+      135deg,
+      #c58b5d,
+      #a56a43
+    );
+
+  color:white;
+
+  font-size:1rem;
+  font-weight:700;
+
+  cursor:pointer;
+
+  transition:0.25s;
+}
+
+.login-form button:hover{
+
+  transform:translateY(-3px);
+
+  box-shadow:
+    0 15px 30px rgba(165,106,67,0.35);
+}
+
+/* DECORATION */
+
+.coffee-decoration{
+
+  position:absolute;
+
+  top:40px;
+  right:40px;
+
+  font-size:2rem;
+
+  opacity:0.6;
+}
+
+/* ANIMATION */
+
+@keyframes fadeIn{
+
+  from{
+    opacity:0;
+    transform:translateY(20px);
+  }
+
+  to{
+    opacity:1;
+    transform:translateY(0);
+  }
+
+}
+
+/* RESPONSIVE */
+
+@media(max-width:500px){
+
+  .login-card{
+    width:92%;
+    padding:30px;
+  }
+
+}
