@@ -15,7 +15,13 @@ const getMySala = async (req, res) => {
     try {
         const sala = await getMySalaService(req.user.id);
         console.log("📋 SALA OBTENIDA:", sala);
+        if (!sala) {
 
+            return res.status(404).json({
+                message: "Usuario sin sala"
+            });
+
+            }
         res.json(sala);
     } catch (error) {
 
