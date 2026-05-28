@@ -44,11 +44,16 @@ const loginUser = async (req, res) => {
             token
         });
 
-    } catch (error) {
-        res.status(500).json({
-            message: error.message
-        });
-    }
+    }catch (error) {
+
+  console.log("ERROR LOGIN:");
+  console.log(error);
+
+  res.status(500).json({
+    error: error.message
+  });
+
+}
 };
 
 
