@@ -677,7 +677,7 @@ const renderTask = (
                   index={index}
                 >
 
-                  {(provided, snapshot) => (
+                  {(provided) => (
 
                     <div
                       
@@ -731,7 +731,7 @@ const renderTask = (
                   index={index}
                 >
 
-                  {(provided, snapshot) => (
+                  {(provided) => (
 
                     <div
                       
@@ -785,7 +785,7 @@ const renderTask = (
                   index={index}
                 >
 
-                  {(provided, snapshot) => (
+                  {(provided) => (
 
                     <div
                       
@@ -839,7 +839,7 @@ const renderTask = (
                   index={index}
                 >
 
-                  {(provided, snapshot) => (
+                  {(provided) => (
 
                       <div
                        
