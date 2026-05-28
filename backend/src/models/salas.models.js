@@ -63,9 +63,24 @@ const getSalaByCode = async (
     return result.rows[0];
 };
 
+const getUsersBySala = async (id_sala) => {
+
+    const result = await pool.query(
+        `
+        SELECT *
+        FROM "Usuarios"
+        WHERE id_sala = $1
+        `,
+        [id_sala]
+    );
+
+    return result.rows;
+};
+
 module.exports = {
     createSala,
     updateUserSala,
     getMySala,
-    getSalaByCode
+    getSalaByCode,
+    getUsersBySala
 };

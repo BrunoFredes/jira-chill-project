@@ -5,7 +5,7 @@ const {
     updateTaskService,
     deleteTaskService
 } = require("../services/tarea.service");
-
+const pool = require("../config/database.js");   
 // GET ALL
 const getTasks = async (req, res) => {
 
@@ -169,11 +169,89 @@ const deleteTask = async (req, res) => {
         console.log("❌ ERROR DELETE:", error.message);
     }
 };
+const updateEstadoTask = async (
+  req,
+  res
+) => {
 
+  try {
+
+    const { id } = req.params;
+
+    const {
+      estado_tarea
+    } = req.body;
+
+    await pool.query(
+      `
+      UPDATE "Tareas"
+      SET estado_tarea = $1
+      WHERE id_tarea = $2
+      `,
+      [estado_tarea, id]
+    );
+
+    res.json({
+      message: 'Estado actualizado'
+    });
+
+  } catch (error) {
+
+    console.log(error);
+
+    res.status(500).json({
+      message: 'Error actualizando estado'
+    });
+
+  }
+
+};
+const assignTaskController = async (
+  req,
+  res
+) => {
+
+  try {
+
+    const { id } = req.params;
+
+    const {
+      encargado_tarea
+    } = req.body;
+
+    await pool.query(
+      `
+      UPDATE "Tareas"
+      SET encargado_tarea = $1
+      WHERE id_tarea = $2
+      `,
+      [
+        encargado_tarea,
+        id
+      ]
+    );
+
+    res.json({
+      message: 'Tarea asignada'
+    });
+
+  } catch (error) {
+
+    console.log(error);
+
+    res.status(500).json({
+      error: 'Error asignando tarea'
+    });
+
+  }
+
+};
 module.exports = {
     getTasks,
     getTaskById,
     createTask,
     updateTask,
-    deleteTask
-};
+    updateEstadoTask,
+    deleteTask,
+    assignTaskController
+    };

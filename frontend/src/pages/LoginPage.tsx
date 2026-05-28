@@ -1,6 +1,7 @@
 import { useState } from 'react';
-import axios from 'axios';
 import './LoginPage.css';
+import Swal from 'sweetalert2';
+import api from '../services/api';
 
 function LoginPage() {
 
@@ -30,15 +31,19 @@ function LoginPage() {
             password_usuario: password
           };
 
-      const response = await axios.post(
+      const response = await api.post(
         isRegister
-          ? "http://localhost:3000/users"
-          : "http://localhost:3000/auth/login",
+          ? "/users"
+          : "/auth/login",
         body
       );
       if (isRegister) {
 
-        alert("Cuenta creada correctamente");
+        Swal.fire({
+          icon: 'success',
+          title: 'Cuenta creada',
+          text: 'Cuenta creada correctamente'
+        });
 
         setIsRegister(false);
 
@@ -46,10 +51,13 @@ function LoginPage() {
 
       }
       localStorage.setItem("token", response.data.token);
-      console.log("TOKEN: " + response.data.token);
-
-
       
+
+      localStorage.setItem(
+        "userId",
+        response.data.user.id_usuario
+      );
+            
 
       
         window.location.reload();
@@ -57,7 +65,11 @@ function LoginPage() {
 
     } catch (error) {
 
-      console.log(error);
+      Swal.fire({
+        icon: 'error',
+        title: 'Error',
+        text: 'Usuario o contraseña incorrectos'
+      });
 
     }
 

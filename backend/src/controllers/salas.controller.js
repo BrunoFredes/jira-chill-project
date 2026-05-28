@@ -3,7 +3,8 @@ const {
   
    getMySalaService,
    
-   joinSalaService
+   joinSalaService,
+   getUsersBySalaService,
    
 } = require("../services/salas.service");
 
@@ -98,10 +99,46 @@ const joinSala = async (
     }
 
 };
+const getUsersFromMySala = async (req, res) => {
+
+    try {
+
+        const userId = req.user.id;
+
+        const sala = await getMySalaService(
+            userId
+        );
+
+        if (!sala) {
+
+            return res.status(404).json({
+                message: "El usuario no pertenece a ninguna sala"
+            });
+
+        }
+
+        const users = await getUsersBySalaService(
+            sala.id_sala
+        );
+
+        res.json(users);
+
+    } catch (error) {
+
+    console.log(error);
+
+    res.status(500).json({
+        message: error.message
+    });
+
+}
+
+};
 
 
 module.exports = {
     getMySala,
     createSala,
-    joinSala
+    joinSala,
+    getUsersFromMySala
 };

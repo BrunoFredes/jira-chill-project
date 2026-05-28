@@ -6,7 +6,8 @@ const authMiddleware = require("../middlewares/auth.middleware");
 const {
     createSala,
     getMySala,
-    joinSala
+    joinSala,
+    getUsersFromMySala
 } = require("../controllers/salas.controller");
 
 
@@ -28,6 +29,13 @@ router.post(
     "/join",
     authMiddleware,
     joinSala
+);
+
+//GET USERS FROM SALA 
+router.get(
+  "/me/users",
+  authMiddleware,
+  getUsersFromMySala
 );
 
 

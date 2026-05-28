@@ -2,7 +2,8 @@ const {
     createSala,
     updateUserSala,
     getMySala,
-    getSalaByCode
+    getSalaByCode,
+    getUsersBySala
 } = require("../models/salas.models");
 
 // CREATE SALAS SERVICE
@@ -60,8 +61,16 @@ const sala = await getSalaByCode(codigo_sala);
     );
     return sala;
 }
+// GET USERS FROM SALA SERVICE
+// GET USERS FROM SALA SERVICE
+const getUsersBySalaService = async (id_sala) => {
+
+    return await getUsersBySala(id_sala);
+
+};
 module.exports = {
     createSalaService,
     getMySalaService,
-    joinSalaService
+    joinSalaService,
+    getUsersBySalaService,
 };
