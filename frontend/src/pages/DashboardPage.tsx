@@ -591,7 +591,8 @@ const renderTask = (
   {/* TOPBAR */}
   <header className="topbar">
 
-    <h1> Jira Chill by Bruno</h1>
+    
+    <h1 className='tittle'> Jira Chill by Bruno</h1>
 
     <button
       className="logout-btn"
