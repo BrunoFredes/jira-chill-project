@@ -374,7 +374,7 @@ const handleAssignTask = async (
     ]);
 
     setTasks(tasksRes.data);
-    console.log("USUARIOS:", usersRes.data);
+
     setUsers(usersRes.data);
 
   } catch (error) {
