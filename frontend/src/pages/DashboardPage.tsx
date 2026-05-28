@@ -316,7 +316,7 @@ const handleAssignTask = async (
         }
       );
 
-      console.log("SALA:", salaRes.data);
+      
 
       setSala(salaRes.data);
       const currentUserId = Number(
